@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('05_page/landing');
 });
+
+Route::get('/{page}', function ($page) {
+    return view('05_page/'.$page);
+});
