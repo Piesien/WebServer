@@ -13696,7 +13696,6 @@ module.exports = __webpack_require__(36);
 /* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -13720,9 +13719,17 @@ var map;
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: 56.9496, lng: 24.1052 },
-        zoom: 8
+        zoom: 14
     });
 };
+
+function existingSpot(spot) {
+    return "<div>\n                <div>\n                " + spot.description + "\n                </div>\n                \n                <div class=\"spot__name\">\n                " + spot.name + "\n                </div>\n            </div>";
+}
+
+function neededSpot(spot) {
+    return "<div>\n                <div>\n                " + spot.description + "\n                </div>\n                \n                <div class=\"spot__name\">\n                " + spot.name + "\n                </div>\n                <div>\n                <span>Votes: </span>" + spot.votes + "\n                </div>\n            </div>";
+}
 
 firebase.initializeApp(config);
 initMap();
@@ -13730,16 +13737,30 @@ initMap();
 var spots = firebase.database().ref('spots');
 
 spots.on('value', function (snapshot) {
-    var fspots = snapshot.val();
-    var markers = fspots.map(function (_ref) {
-        var latitude = _ref.latitude,
-            longitude = _ref.longitude,
-            id = _ref.id;
 
-        return new google.maps.Marker({
-            position: { lat: latitude, lng: longitude },
-            label: id,
+    var fspots = snapshot.val();
+
+    fspots.map(function (spot) {
+
+        function infoString(spot) {
+            if (spot.type === "exists") {
+                return existingSpot(spot);
+            } else {
+                return neededSpot(spot);
+            }
+        }
+
+        var infowindow = new google.maps.InfoWindow({
+            content: infoString(spot)
+        });
+
+        var marker = new google.maps.Marker({
+            position: { lat: spot.latitude, lng: spot.longitude },
             map: map
+        });
+
+        marker.addListener('click', function () {
+            return infowindow.open(map, marker);
         });
     });
 });
