@@ -2,18 +2,18 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
 // Components
 // 01_atom
 @import "01_atom/choice-btn";
 @import "01_atom/responsive-img";
 // 05_pages
 @import "05_page/landing";
-
-// Variables
-@import 'variables';
-
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
 
 .navbar-laravel {
   background-color: #fff;
