@@ -4,11 +4,13 @@ $legend_items = [
         'src' => '/img/ic_place_exists.png',
         'alt' => 'Existing bicycle parking spot',
         'title' => 'Existing bicycle parking spot',
+        'type' => 'exists'
     ],
     [
         'src' => '/img/ic_place_needed.png',
         'alt' => 'Needed bicycle parking spot',
         'title' => 'Needed bicycle parking spot',
+        'type' => 'needed'
     ]
 ];
 ?>
