@@ -1,13 +1,9 @@
-
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
-
 // Variables
 @import 'variables';
-
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
-
 // Components
 // 01_atom
 @import "01_atom/choice-btn";
@@ -22,8 +18,8 @@
 @import "05_page/landing";
 
 .navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
 #map {
@@ -37,8 +33,9 @@ h1 {
 }
 
 .input-row {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     input {
         width: 100%;
+        margin-bottom: 5px;
     }
 }

@@ -13736,7 +13736,7 @@ function neededSpot(spot) {
 }
 
 function createNewSpotContent() {
-    return "<div class=\"input-row\">\n<input type=\"text\" class=\"input\" name=\"name\" placeholder=\"Name\">\n<input type=\"text\" class=\"input\" name=\"description\" placeholder=\"description\">\n<button class=\"button\" id=\"create\">Create</button>\n</div>";
+    return "<div class=\"input-row\">\n<input type=\"text\" class=\"input\" name=\"name\" placeholder=\"Name\" id=\"name-input\">\n<input type=\"text\" class=\"input\" name=\"description\" placeholder=\"description\" id=\"description-input\">\n<button class=\"button\" id=\"create-button\">Create</button>\n</div>";
 }
 
 firebase.initializeApp(config);
@@ -13753,6 +13753,26 @@ function clearOverlays() {
 var spots = firebase.database().ref('spots');
 
 var infoWindow = new google.maps.InfoWindow({ maxWidth: 320 });
+
+function writeNewSpot(latLng) {
+    var name = document.getElementById("name-input").value;
+    var desc = document.getElementById("description-input").value;
+    var spotData = {
+        description: desc,
+        latitude: latLng.lat(),
+        longitude: latLng.lng(),
+        name: name,
+        type: "needed",
+        votes: 1
+    };
+
+    var newPostKey = firebase.database().ref().child('spots').push().key;
+
+    var updates = {};
+    updates['/spots/' + newPostKey] = spotData;
+
+    firebase.database().ref().update(updates);
+}
 
 function placeMarkerAndPanTo(latLng, map) {
     var marker = new google.maps.Marker({
@@ -13772,6 +13792,13 @@ function placeMarkerAndPanTo(latLng, map) {
     infoWindow.addListener("closeclick", function () {
         marker.setMap(null);
     });
+
+    if (document.getElementById("create-button")) {
+        document.getElementById("create-button").addEventListener("click", function (evt) {
+            writeNewSpot(latLng);
+            marker.setMap(null);
+        });
+    }
 }
 
 spots.on('value', function (snapshot) {

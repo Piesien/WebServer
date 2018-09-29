@@ -10565,10 +10565,11 @@ h1 {
 }
 
 .input-row {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 .input-row input {
   width: 100%;
+  margin-bottom: 5px;
 }
 
