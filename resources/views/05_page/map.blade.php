@@ -17,6 +17,13 @@ $legend_items = [
 @extends('04_template.default')
 
 @section('content')
-    @include('03_organism/map-legend', ['legend_items' => $legend_items])
-    <div id="map"></div>
+    <div id="map-body">
+        @include('03_organism/map-legend', ['legend_items' => $legend_items])
+        <div id="map"></div>
+        <div id="sidebar">
+            <h3>Most popular</h3>
+            <hr>
+            <div id="list"></div>
+        </div>
+    </div>
 @endsection

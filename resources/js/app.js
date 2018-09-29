@@ -63,6 +63,17 @@ function existingSpot(spot) {
                 </div>
             </div>`
 }
+function rSpot(spot) {
+    return `<div class="spot spot--r">
+                <div>
+                ${spot.description}
+                </div>
+                
+                <div class="spot__name">
+                ${spot.name}
+                </div>
+            </div>`
+}
 
 function neededSpot(spot) {
     return `<div class="spot spot--needed">
@@ -100,8 +111,6 @@ function clearOverlays() {
     }
     markersArray.length = 0;
 }
-var type = 'clear';
-var fvals;
 var spots = firebase.database().ref('spots');
 
 let infoWindow = new google.maps.InfoWindow({maxWidth: 320});
@@ -175,11 +184,32 @@ spots.on('value', function (snapshot) {
 function renderPins(spots) {
     clearOverlays();
     spots.map((spot) => {
+    let needed = fvals.filter(val => val.votes > 0);
+    needed.sort(function (a, b) {
+        return b.votes - a.votes;
+    });
+
+    populateList(needed.slice(0, 10));
+
+    fvals.map((spot) => {
+        let icon ='/img/';
+        if (spot.type === "exists") {
+            icon += 'ic_place_exists.png';
+        } else if(spot.type === "r") {
+            icon += 'ic_place_r.png';
+        } else {
+            icon += 'ic_place_needed.png';
+        }
 
         function infoString(spot) {
             if (spot.type === "exists") {
+                icon += 'ic_place_exists.png';
                 return existingSpot(spot);
+            } else if(spot.type === "r") {
+                icon += 'ic_place_r.png';
+                return rSpot(spot);
             } else {
+                icon += 'ic_place_needed.png';
                 return neededSpot(spot);
             }
         }
@@ -187,7 +217,7 @@ function renderPins(spots) {
         var marker = new google.maps.Marker({
             position: {lat: spot.latitude, lng: spot.longitude},
             map: map,
-            icon: ((spot.type === "exists") ? '/img/ic_place_exists.png' : '/img/ic_place_needed.png')
+            icon: icon
         });
         markersArray.push(marker);
 
@@ -202,4 +232,38 @@ function renderPins(spots) {
             }
         });
     });
+});
+
+function voteFromList (id, votes) {
+    firebase.database().ref("spots/"+id+"/votes").set(votes + 1);
+}
+
+function populateList (toplist) {
+    if (document.getElementById('toplist') !== null) {
+        document.getElementById('list').removeChild(document.getElementById('toplist'));}
+    var ul = document.createElement('ul');
+    ul.setAttribute('id','toplist');
+
+    document.getElementById('list').appendChild(ul);
+    toplist.forEach(renderList);
+
+    function renderList(element, index, arr) {
+        var li = document.createElement('li');
+        li.setAttribute('class','item');
+        console.log(element);
+
+        ul.appendChild(li);
+        var btn = document.createElement('button');
+        btn.setAttribute('id','vote-btn');
+        btn.onclick = function(){voteFromList(element.id, element.votes );};
+        btn.innerHTML = "Vote"
+
+        var dv = document.createElement('div');
+        dv.setAttribute('id','item-row');
+        dv.innerHTML = dv.innerHTML +"<span><b>Votes: </b>" + element.votes + "</span>"
+        dv.appendChild(btn);
+        li.innerHTML=li.innerHTML + element.name + "<br/>";
+        li.appendChild(dv);
+
+    }
 }
