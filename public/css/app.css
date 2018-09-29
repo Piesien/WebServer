@@ -10510,6 +10510,25 @@ footer {
   color: #C5CAE9;
 }
 
+#legend {
+  position: fixed;
+  bottom: 25px;
+  left: 10px;
+  padding: 10px 20px;
+  z-index: 20;
+  background-color: #fff;
+  border: 1px solid #BDBDBD;
+}
+
+#legend .legend-items {
+  list-style: none;
+  padding: 0;
+}
+
+#legend .legend-items .legend-item {
+  margin-bottom: 10px;
+}
+
 .nav-line {
   background-color: #303F9F;
 }
