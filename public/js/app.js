@@ -13696,6 +13696,7 @@ module.exports = __webpack_require__(36);
 /* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
+
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -13704,65 +13705,15 @@ module.exports = __webpack_require__(36);
 
 __webpack_require__(12);
 
-// Initialize Firebase
-var config = {
-    apiKey: "AIzaSyAyD1hhGZ21d25MXX3FVEmOkK9rhpP_8PI",
-    authDomain: "piesien-6634e.firebaseapp.com",
-    databaseURL: "https://piesien-6634e.firebaseio.com",
-    projectId: "piesien-6634e",
-    storageBucket: "piesien-6634e.appspot.com",
-    messagingSenderId: "773809530700"
-};
-
 var map;
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-        center: { lat: 56.9496, lng: 24.1052 },
-        zoom: 14
+        center: { lat: -34.397, lng: 150.644 },
+        zoom: 8
     });
-};
-
-function existingSpot(spot) {
-    return "<div>\n                <div>\n                " + spot.description + "\n                </div>\n                \n                <div class=\"spot__name\">\n                " + spot.name + "\n                </div>\n            </div>";
 }
-
-function neededSpot(spot) {
-    return "<div>\n                <div>\n                " + spot.description + "\n                </div>\n                \n                <div class=\"spot__name\">\n                " + spot.name + "\n                </div>\n                <div>\n                <span>Votes: </span>" + spot.votes + "\n                </div>\n            </div>";
-}
-
-firebase.initializeApp(config);
 initMap();
-
-var spots = firebase.database().ref('spots');
-
-var infoWindow = new google.maps.InfoWindow({ maxWidth: 320 });
-
-spots.on('value', function (snapshot) {
-
-    var fspots = snapshot.val();
-
-    fspots.map(function (spot) {
-
-        function infoString(spot) {
-            if (spot.type === "exists") {
-                return existingSpot(spot);
-            } else {
-                return neededSpot(spot);
-            }
-        }
-
-        var marker = new google.maps.Marker({
-            position: { lat: spot.latitude, lng: spot.longitude },
-            map: map
-        });
-
-        marker.addListener('click', function () {
-            infoWindow.setContent(infoString(spot));
-            infoWindow.open(map, marker);
-        });
-    });
-});
 
 /***/ }),
 /* 12 */
