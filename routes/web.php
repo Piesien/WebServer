@@ -15,6 +15,11 @@ Route::get('/', function () {
     return view('05_page/landing');
 });
 
+
 Route::get('/{page}', function ($page) {
-    return view('05_page/'.$page);
+    if(View::exists('05_page/'.$page)){
+        return view('05_page/'.$page);
+    }else{
+        return view('05_page/landing');
+    }
 });
