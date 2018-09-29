@@ -57,6 +57,8 @@ initMap();
 
 var spots = firebase.database().ref('spots');
 
+let infoWindow = new google.maps.InfoWindow({maxWidth: 320});
+
 spots.on('value', function (snapshot) {
 
     let fspots = snapshot.val();
@@ -71,15 +73,14 @@ spots.on('value', function (snapshot) {
             }
         }
 
-        var infowindow = new google.maps.InfoWindow({
-            content: infoString(spot)
-        });
-
         var marker = new google.maps.Marker({
             position: {lat: spot.latitude, lng: spot.longitude},
             map: map
         });
 
-        marker.addListener('click', () => infowindow.open(map, marker));
+        marker.addListener('click', () => {
+            infoWindow.setContent(infoString(spot));
+            infoWindow.open(map, marker)
+        });
     });
 });
