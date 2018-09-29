@@ -13749,7 +13749,7 @@ var infoWindow = new google.maps.InfoWindow({ maxWidth: 320 });
 spots.on('value', function (snapshot) {
     clearOverlays();
     var fspots = snapshot.val();
-    console.log(fspots);
+
     var fkeys = Object.keys(fspots);
     var fvals = Object.values(fspots);
 

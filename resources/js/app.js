@@ -73,7 +73,7 @@ let infoWindow = new google.maps.InfoWindow({maxWidth: 320});
 spots.on('value', function (snapshot) {
     clearOverlays();
     let fspots = snapshot.val();
-    console.log(fspots);
+    
     let fkeys = Object.keys(fspots);
     let fvals = Object.values(fspots);
 
