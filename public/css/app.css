@@ -10466,6 +10466,67 @@ a.text-dark:focus {
   }
 }
 
+.choice-btn {
+  padding: 20px 40px;
+  background-color: #FF5252;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 20px;
+}
+
+.responsive-img {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: auto !important;
+  height: auto !important;
+  max-width: 100%;
+  max-height: 100%;
+  margin: auto auto auto auto;
+  margin-top: 0px;
+}
+
+.step {
+  background-color: #3F51B5;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.step h3 {
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.step p {
+  color: #C5CAE9;
+}
+
+.benefits {
+  margin-top: 40px;
+}
+
+.rte {
+  margin-top: 40px;
+}
+
+footer {
+  padding: 20px 0;
+  background-color: #303F9F;
+  color: #C5CAE9;
+}
+
+.nav-line {
+  background-color: #303F9F;
+}
+
+.row__hero {
+  margin-top: 66px;
+  position: relative;
+}
+
 .navbar-laravel {
   background-color: #fff;
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
