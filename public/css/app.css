@@ -10564,3 +10564,11 @@ h1 {
   color: red;
 }
 
+.input-row {
+  margin-bottom: 5px;
+}
+
+.input-row input {
+  width: 100%;
+}
+

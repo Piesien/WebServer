@@ -23,6 +23,10 @@ function initMap() {
         center: {lat: 56.9496, lng: 24.1052},
         zoom: 14
     });
+
+    map.addListener('click', function(e) {
+        placeMarkerAndPanTo(e.latLng, map);
+    });
 };
 
 function existingSpot(spot) {
@@ -55,6 +59,14 @@ function neededSpot(spot) {
             </div>`
 }
 
+function createNewSpotContent() {
+    return `<div class="input-row">
+<input type="text" class="input" name="name" placeholder="Name">
+<input type="text" class="input" name="description" placeholder="description">
+<button class="button" id="create">Create</button>
+</div>`
+}
+
 firebase.initializeApp(config);
 initMap();
 
@@ -69,6 +81,26 @@ function clearOverlays() {
 var spots = firebase.database().ref('spots');
 
 let infoWindow = new google.maps.InfoWindow({maxWidth: 320});
+
+function placeMarkerAndPanTo(latLng, map) {
+    var marker = new google.maps.Marker({
+        position: latLng,
+        map: map,
+        icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+    });
+    map.panTo(latLng);
+
+    infoWindow.setContent(createNewSpotContent());
+    infoWindow.open(map, marker);
+
+    map.addListener('click', function(e) {
+        marker.setMap(null);
+    });
+
+    infoWindow.addListener("closeclick", function () {
+        marker.setMap(null);
+    })
+}
 
 spots.on('value', function (snapshot) {
     clearOverlays();
@@ -88,7 +120,6 @@ spots.on('value', function (snapshot) {
                 return neededSpot(spot);
             }
         }
-
 
         var marker = new google.maps.Marker({
             position: {lat: spot.latitude, lng: spot.longitude},
