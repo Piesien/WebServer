@@ -27,6 +27,29 @@ function initMap() {
     map.addListener('click', function(e) {
         placeMarkerAndPanTo(e.latLng, map);
     });
+
+    let legendObj = document.getElementById("legend-items");
+    let legendItems = [];
+    for (let i = 0; i < legendObj.childNodes.length; i++) {
+        if (legendObj.childNodes[i].className == "legend-item") {
+            legendItems.push(legendObj.childNodes[i]);
+        }
+    }
+    legendItems.map(function(item) {
+        item.addEventListener('click', function (e) {
+            type = this.dataset.type;
+
+            let filtered = fvals;
+
+            if (type != 'clear') {
+                filtered = filtered.filter(function (val) {
+                    return val.type == type;
+                });
+            };
+
+            renderPins(filtered);
+        });
+    });
 };
 
 function existingSpot(spot) {
@@ -77,6 +100,8 @@ function clearOverlays() {
     }
     markersArray.length = 0;
 }
+var type = 'clear';
+var fvals;
 var spots = firebase.database().ref('spots');
 
 let infoWindow = new google.maps.InfoWindow({maxWidth: 320});
@@ -134,11 +159,22 @@ spots.on('value', function (snapshot) {
     let fspots = snapshot.val();
 
     let fkeys = Object.keys(fspots);
-    let fvals = Object.values(fspots);
+    fvals = Object.values(fspots);
+
+    if(type != 'clear'){
+        fvals.filter(function (val) {
+            return val.type == type;
+        });
+    }
 
     fvals.map((item, i) => item.id = fkeys[i]);
 
-    fvals.map((spot) => {
+    renderPins(fvals);
+});
+
+function renderPins(spots) {
+    clearOverlays();
+    spots.map((spot) => {
 
         function infoString(spot) {
             if (spot.type === "exists") {
@@ -166,4 +202,4 @@ spots.on('value', function (snapshot) {
             }
         });
     });
-});
+}
