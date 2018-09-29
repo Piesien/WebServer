@@ -24,6 +24,30 @@ function initMap() {
         zoom: 14
     });
 
+    var TILE_URL = 'https://1.base.maps.api.here.com/maptile/2.1/maptile/newest/normal.day.grey/{z}/{x}/{y}/256/png8?app_id=devportal-demo-20180625&app_code=9v2BkviRwi9Ot26kp2IysQ';
+
+    // Name the layer anything you like.
+    var layerID = 'my_custom_layer';
+
+    // Create a new ImageMapType layer.
+    var layer = new google.maps.ImageMapType({
+      name: layerID,
+      getTileUrl: function(coord, zoom) {
+        console.log(coord);
+        var url = TILE_URL
+          .replace('{x}', coord.x)
+          .replace('{y}', coord.y)
+          .replace('{z}', zoom);
+        return url;
+      },
+      tileSize: new google.maps.Size(256, 256),
+      minZoom: 1,
+      maxZoom: 20
+    });
+
+    map.mapTypes.set(layerID, layer);
+    map.setMapTypeId(layerID);
+
     map.addListener('click', function(e) {
         placeMarkerAndPanTo(e.latLng, map);
     });
@@ -57,7 +81,7 @@ function existingSpot(spot) {
                 <div>
                 ${spot.description}
                 </div>
-                
+
                 <div class="spot__name">
                 ${spot.name}
                 </div>
@@ -68,7 +92,7 @@ function rSpot(spot) {
                 <div>
                 ${spot.description}
                 </div>
-                
+
                 <div class="spot__name">
                 ${spot.name}
                 </div>
