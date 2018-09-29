@@ -111,7 +111,8 @@ function neededSpot(spot) {
                     <span>Votes: </span>${spot.votes}
                 </div>
                 <div>
-                    <button class="button" id="vote-button">Vote</button>
+                    <a href="/form" class="btn btn-primary">Claim</a>
+                    <button class="btn btn-info" id="vote-button">Vote</button>
                 </div>
             </div>`
 }
@@ -283,12 +284,20 @@ function populateList (toplist) {
         ul.appendChild(li);
         var btn = document.createElement('button');
         btn.setAttribute('id','vote-btn');
+        btn.setAttribute('class', 'btn btn-info');
         btn.onclick = function(){voteFromList(element.id, element.votes );};
-        btn.innerHTML = "Vote"
+        btn.innerHTML = "Vote";
+
+        var claimBtn = document.createElement('a');
+        claimBtn.setAttribute('id','vote-btn');
+        claimBtn.setAttribute('class', 'btn btn-primary');
+        claimBtn.setAttribute('href', '/form');
+        claimBtn.innerHTML = "Claim"
 
         var dv = document.createElement('div');
         dv.setAttribute('id','item-row');
         dv.innerHTML = dv.innerHTML +"<span><b>Votes: </b>" + element.votes + "</span>"
+        dv.appendChild(claimBtn);
         dv.appendChild(btn);
         li.innerHTML=li.innerHTML + element.name + "<br/>";
         li.appendChild(dv);
