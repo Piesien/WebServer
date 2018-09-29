@@ -50,7 +50,7 @@ function neededSpot(spot) {
                     <span>Votes: </span>${spot.votes}
                 </div>
                 <div>
-                    <button class="button" onclick="console.log('asdf')">Vote</button>
+                    <button class="button" id="vote-button">Vote</button>
                 </div>
             </div>`
 }
@@ -58,16 +58,28 @@ function neededSpot(spot) {
 firebase.initializeApp(config);
 initMap();
 
+var markersArray = [];
+
+function clearOverlays() {
+    for (var i = 0; i < markersArray.length; i++ ) {
+        markersArray[i].setMap(null);
+    }
+    markersArray.length = 0;
+}
 var spots = firebase.database().ref('spots');
 
 let infoWindow = new google.maps.InfoWindow({maxWidth: 320});
 
 spots.on('value', function (snapshot) {
-
+    clearOverlays();
     let fspots = snapshot.val();
-    fspots = Object.values(fspots)
+    console.log(fspots);
+    let fkeys = Object.keys(fspots);
+    let fvals = Object.values(fspots);
 
-    fspots.map((spot) => {
+    fvals.map((item, i) => item.id = fkeys[i]);
+
+    fvals.map((spot) => {
 
         function infoString(spot) {
             if (spot.type === "exists") {
@@ -81,10 +93,17 @@ spots.on('value', function (snapshot) {
             position: {lat: spot.latitude, lng: spot.longitude},
             map: map
         });
+        markersArray.push(marker);
 
         marker.addListener('click', () => {
             infoWindow.setContent(infoString(spot));
-            infoWindow.open(map, marker)
+            infoWindow.open(map, marker);
+
+            if(document.getElementById("vote-button")) {
+                document.getElementById("vote-button").addEventListener("click", function (evt) {
+                    firebase.database().ref("spots/"+spot.id+"/votes").set(spot.votes + 1);
+                });
+            }
         });
     });
 });

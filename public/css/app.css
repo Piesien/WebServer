@@ -10467,26 +10467,18 @@ a.text-dark:focus {
 }
 
 .choice-btn {
-  padding: 20px 40px;
+  padding: 10px 20px;
+  font-size: 16px;
   background-color: #FF5252;
   color: #fff;
   text-transform: uppercase;
-  font-size: 20px;
 }
 
-.responsive-img {
-  display: block;
-  position: absolute;
-  bottom: 0;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: auto !important;
-  height: auto !important;
-  max-width: 100%;
-  max-height: 100%;
-  margin: auto auto auto auto;
-  margin-top: 0px;
+@media screen and (min-width: 768px) {
+  .choice-btn {
+    padding: 20px 40px;
+    font-size: 20px;
+  }
 }
 
 .step {
@@ -10525,6 +10517,35 @@ footer {
 .row__hero {
   margin-top: 66px;
   position: relative;
+  overflow: hidden;
+}
+
+.row__hero figure {
+  padding-top: 100%;
+}
+
+.row__hero figure .responsive-img {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  width: auto !important;
+  height: auto !important;
+  margin: auto auto auto auto;
+  margin-top: 0px;
+}
+
+@media screen and (min-width: 425px) {
+  .row__hero figure {
+    padding-top: 56.25%;
+  }
+
+  .row__hero figure .responsive-img {
+    top: 0;
+    left: 0;
+    right: 0;
+    max-width: 100%;
+    max-height: 100%;
+  }
 }
 
 .navbar-laravel {
