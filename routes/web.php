@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('05_page/landing');
+    return view('05_page/map');
 });
 
 

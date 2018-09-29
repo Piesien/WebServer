@@ -112,7 +112,7 @@ function neededSpot(spot) {
                 </div>
                 <div>
                     <a href="/form" class="btn btn-primary">Claim</a>
-                    <button class="btn btn-info" id="vote-button">Vote</button>
+                    <button class="btn btn-vote" id="vote-button">Vote</button>
                 </div>
             </div>`
 }
@@ -284,7 +284,7 @@ function populateList (toplist) {
         ul.appendChild(li);
         var btn = document.createElement('button');
         btn.setAttribute('id','vote-btn');
-        btn.setAttribute('class', 'btn btn-info');
+        btn.setAttribute('class', 'btn btn-vote');
         btn.onclick = function(){voteFromList(element.id, element.votes );};
         btn.innerHTML = "Vote";
 
@@ -292,7 +292,7 @@ function populateList (toplist) {
         claimBtn.setAttribute('id','vote-btn');
         claimBtn.setAttribute('class', 'btn btn-primary');
         claimBtn.setAttribute('href', '/form');
-        claimBtn.innerHTML = "Claim"
+        claimBtn.innerHTML = "Claim";
 
         var dv = document.createElement('div');
         dv.setAttribute('id','item-row');

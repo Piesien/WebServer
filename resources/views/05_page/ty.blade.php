@@ -10,6 +10,9 @@
             <div class="col-sm-12">
                 <p>If your download doesn't start then <a href="/dl">Click here</a></p>
             </div>
+            <div class="col-sm-12">
+                <a href="/"> back to map!</a>
+            </div>
         </div>
     </div>
 @endsection
