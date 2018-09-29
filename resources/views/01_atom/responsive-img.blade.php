@@ -1,4 +1,4 @@
-<figure style="padding-top: {{ $img['aspect'] }}">
+<figure>
     <img
             src="{{ $img['url'] }}"
             alt="{{ $img['alt'] }}"

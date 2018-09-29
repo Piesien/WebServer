@@ -52,7 +52,6 @@ $footer = [
         <div class="row row__hero justify-content-md-center">
             @include('01_atom/responsive-img', [
                 'img' => [
-                    'aspect' => '56.25%',
                     'url' => 'https://via.placeholder.com/1600x900/3F51B5',
                     'alt' => 'hero'
                 ]
