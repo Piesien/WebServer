@@ -23,6 +23,16 @@
     @yield('content')
 </div>
 </body>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-37310769-3"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-37310769-3');
+</script>
+
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUtMxSNXZYS3RPeQ_4NWAXHHXmP3IpSVU&callback=initMap"></script>
 <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
