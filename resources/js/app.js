@@ -111,6 +111,7 @@ function clearOverlays() {
     }
     markersArray.length = 0;
 }
+var type = 'clear';
 var spots = firebase.database().ref('spots');
 
 let infoWindow = new google.maps.InfoWindow({maxWidth: 320});
@@ -183,56 +184,59 @@ spots.on('value', function (snapshot) {
 
 function renderPins(spots) {
     clearOverlays();
-    spots.map((spot) => {
-    let needed = fvals.filter(val => val.votes > 0);
+
+    let needed = spots.filter(val => val.votes > 0);
+
     needed.sort(function (a, b) {
         return b.votes - a.votes;
     });
 
     populateList(needed.slice(0, 10));
 
-    fvals.map((spot) => {
-        let icon ='/img/';
-        if (spot.type === "exists") {
-            icon += 'ic_place_exists.png';
-        } else if(spot.type === "r") {
-            icon += 'ic_place_r.png';
-        } else {
-            icon += 'ic_place_needed.png';
-        }
+    spots.map((spot) => {
 
-        function infoString(spot) {
+            let icon = '/img/';
             if (spot.type === "exists") {
                 icon += 'ic_place_exists.png';
-                return existingSpot(spot);
-            } else if(spot.type === "r") {
+            } else if (spot.type === "r") {
                 icon += 'ic_place_r.png';
-                return rSpot(spot);
             } else {
                 icon += 'ic_place_needed.png';
-                return neededSpot(spot);
             }
-        }
 
-        var marker = new google.maps.Marker({
-            position: {lat: spot.latitude, lng: spot.longitude},
-            map: map,
-            icon: icon
-        });
-        markersArray.push(marker);
-
-        marker.addListener('click', () => {
-            infoWindow.setContent(infoString(spot));
-            infoWindow.open(map, marker);
-
-            if(document.getElementById("vote-button")) {
-                document.getElementById("vote-button").addEventListener("click", function (evt) {
-                    firebase.database().ref("spots/"+spot.id+"/votes").set(spot.votes + 1);
-                });
+            function infoString(spot) {
+                if (spot.type === "exists") {
+                    icon += 'ic_place_exists.png';
+                    return existingSpot(spot);
+                } else if (spot.type === "r") {
+                    icon += 'ic_place_r.png';
+                    return rSpot(spot);
+                } else {
+                    icon += 'ic_place_needed.png';
+                    return neededSpot(spot);
+                }
             }
+
+            var marker = new google.maps.Marker({
+                position: {lat: spot.latitude, lng: spot.longitude},
+                map: map,
+                icon: icon
+            });
+            markersArray.push(marker);
+
+            marker.addListener('click', () => {
+                infoWindow.setContent(infoString(spot));
+                infoWindow.open(map, marker);
+
+                if (document.getElementById("vote-button")) {
+                    document.getElementById("vote-button").addEventListener("click", function (evt) {
+                        firebase.database().ref("spots/" + spot.id + "/votes").set(spot.votes + 1);
+                    });
+                }
+            });
         });
-    });
-});
+};
+
 
 function voteFromList (id, votes) {
     firebase.database().ref("spots/"+id+"/votes").set(votes + 1);
@@ -250,7 +254,7 @@ function populateList (toplist) {
     function renderList(element, index, arr) {
         var li = document.createElement('li');
         li.setAttribute('class','item');
-        console.log(element);
+        // console.log(element);
 
         ul.appendChild(li);
         var btn = document.createElement('button');
