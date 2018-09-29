@@ -1,0 +1,19 @@
+#legend{
+  position: fixed;
+  bottom: 25px;
+  left: 25px;
+  padding: 10px 20px;
+  z-index: 20;
+  background-color: #fff;
+  border: 1px solid #BDBDBD;
+  h2{
+
+  }
+  .legend-items {
+    list-style: none;
+    padding: 0;
+    .legend-item {
+      margin-bottom: 10px;
+    }
+  }
+}
