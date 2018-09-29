@@ -5,6 +5,7 @@
  */
 
 require('./bootstrap');
+//require('./toastr');
 
 // Initialize Firebase
 var config = {
@@ -256,6 +257,7 @@ function renderPins(spots) {
                 if (document.getElementById("vote-button")) {
                     document.getElementById("vote-button").addEventListener("click", function (evt) {
                         firebase.database().ref("spots/" + spot.id + "/votes").set(spot.votes + 1);
+                        toastr.success('Voted Successfully');
                     });
                 }
             });
@@ -265,6 +267,7 @@ function renderPins(spots) {
 
 function voteFromList (id, votes) {
     firebase.database().ref("spots/"+id+"/votes").set(votes + 1);
+    toastr.success('Voted Successfully');
 }
 
 function populateList (toplist) {

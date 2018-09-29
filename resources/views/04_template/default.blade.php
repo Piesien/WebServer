@@ -16,6 +16,7 @@
     @endif
 
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    <link href="https://codeseven.github.io/toastr/build/toastr.min.css" rel="stylesheet"/>
 </head>
 <body>
 <div>
@@ -24,5 +25,7 @@
 </body>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUtMxSNXZYS3RPeQ_4NWAXHHXmP3IpSVU&callback=initMap"></script>
 <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://codeseven.github.io/toastr/build/toastr.min.js"></script>
 <script src="{{ mix('js/app.js') }}"></script>
 </html>
