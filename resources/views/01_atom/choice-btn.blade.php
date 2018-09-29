@@ -1,0 +1,1 @@
+<a href="{{ $btn['url'] }}" class="choice-btn">{{ $btn['txt'] }}</a>
