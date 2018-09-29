@@ -30,7 +30,7 @@ function initMap() {
 };
 
 function existingSpot(spot) {
-    return `<div>
+    return `<div class="spot spot--existing">
                 <div>
                 ${spot.description}
                 </div>
@@ -42,15 +42,14 @@ function existingSpot(spot) {
 }
 
 function neededSpot(spot) {
-    return `<div>
-                <div>
+    return `<div class="spot spot--needed">
+                <div class="spot__name">
+                    ${spot.name}
+                </div>
+                <div class="spot__description">
                 ${spot.description}
                 </div>
-                
-                <div class="spot__name">
-                ${spot.name}
-                </div>
-                <div>
+                <div class="spot__votes">
                     <span>Votes: </span>${spot.votes}
                 </div>
                 <div>
@@ -107,7 +106,7 @@ function placeMarkerAndPanTo(latLng, map) {
     var marker = new google.maps.Marker({
         position: latLng,
         map: map,
-        icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+        icon: '/img/ic_place_needed.png'
     });
     map.panTo(latLng);
 
@@ -152,7 +151,7 @@ spots.on('value', function (snapshot) {
         var marker = new google.maps.Marker({
             position: {lat: spot.latitude, lng: spot.longitude},
             map: map,
-            icon: ((spot.type === "exists") ? 'http://maps.google.com/mapfiles/ms/icons/red-dot.png' : 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
+            icon: ((spot.type === "exists") ? '/img/ic_place_exists.png' : '/img/ic_place_needed.png')
         });
         markersArray.push(marker);
 

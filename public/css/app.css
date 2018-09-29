@@ -10557,7 +10557,6 @@ footer {
 #map {
   width: 100vw;
   height: 100vh;
-  background-color: pink;
 }
 
 h1 {
@@ -10571,5 +10570,21 @@ h1 {
 .input-row input {
   width: 100%;
   margin-bottom: 5px;
+}
+
+.spot__name {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.spot__votes {
+  margin-bottom: 7px;
+}
+
+.button {
+  padding: 5px 10px;
+  background-color: #fff;
+  border-radius: 3px;
+  -webkit-appearance: none;
 }
 
