@@ -17,6 +17,9 @@ Route::get('/', function () {
 
 
 Route::get('/{page}', function ($page) {
+    if($page == 'ty'){
+        Session::flash('download.in.the.next.request', '/dl');
+    }
     if($page == 'dl'){
         $file= public_path(). "/download/info.pdf";
 
@@ -24,7 +27,7 @@ Route::get('/{page}', function ($page) {
             'Content-Type: application/pdf',
         );
         return Response::download($file, 'iesniegums.pdf', $headers);
-//        return view('05_page/ty');
+        return view('05_page/ty');
     }
 
     if(View::exists('05_page/'.$page)){

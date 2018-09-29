@@ -18,7 +18,7 @@ $form_fields = [
 
 @section('content')
     @include('03_organism/nav-line')
-    <form action="/dl">
+    <form action="/ty">
     <div class="container form-container">
         <div class="row">
             <div class="col-sm-12">
