@@ -13728,7 +13728,7 @@ function existingSpot(spot) {
 }
 
 function neededSpot(spot) {
-    return "<div>\n                <div>\n                " + spot.description + "\n                </div>\n                \n                <div class=\"spot__name\">\n                " + spot.name + "\n                </div>\n                <div>\n                <span>Votes: </span>" + spot.votes + "\n                </div>\n            </div>";
+    return "<div>\n                <div>\n                " + spot.description + "\n                </div>\n                \n                <div class=\"spot__name\">\n                " + spot.name + "\n                </div>\n                <div>\n                    <span>Votes: </span>" + spot.votes + "\n                </div>\n                <div>\n                    <button class=\"button\" onclick=\"console.log('asdf')\">Vote</button>\n                </div>\n            </div>";
 }
 
 firebase.initializeApp(config);
@@ -13741,6 +13741,7 @@ var infoWindow = new google.maps.InfoWindow({ maxWidth: 320 });
 spots.on('value', function (snapshot) {
 
     var fspots = snapshot.val();
+    fspots = Object.values(fspots);
 
     fspots.map(function (spot) {
 

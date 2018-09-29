@@ -47,7 +47,10 @@ function neededSpot(spot) {
                 ${spot.name}
                 </div>
                 <div>
-                <span>Votes: </span>${spot.votes}
+                    <span>Votes: </span>${spot.votes}
+                </div>
+                <div>
+                    <button class="button" onclick="console.log('asdf')">Vote</button>
                 </div>
             </div>`
 }
@@ -62,6 +65,7 @@ let infoWindow = new google.maps.InfoWindow({maxWidth: 320});
 spots.on('value', function (snapshot) {
 
     let fspots = snapshot.val();
+    fspots = Object.values(fspots)
 
     fspots.map((spot) => {
 
