@@ -17,6 +17,16 @@ Route::get('/', function () {
 
 
 Route::get('/{page}', function ($page) {
+    if($page == 'dl'){
+        $file= public_path(). "/download/info.pdf";
+
+        $headers = array(
+            'Content-Type: application/pdf',
+        );
+        return Response::download($file, 'iesniegums.pdf', $headers);
+//        return view('05_page/ty');
+    }
+
     if(View::exists('05_page/'.$page)){
         return view('05_page/'.$page);
     }else{

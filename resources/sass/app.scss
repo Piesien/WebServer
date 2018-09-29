@@ -25,7 +25,7 @@
 }
 
 #map {
-    width: 100vw;
+    width: 80vw;
     height: 100vh;
 }
 
@@ -58,3 +58,37 @@ h1 {
     border-radius: 3px;
     -webkit-appearance: none;
 }
+
+#sidebar {
+
+    h3 {
+        text-align: center;
+        margin: 10px;
+    }
+
+    #topList{
+        overflow-y: scroll;
+        height: 85%;
+    }
+    #item-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+    }
+
+}
+
+#vote-btn {
+
+    margin-right: 15px;
+    border-radius: 3px;
+}
+
+.item {
+    list-style: none;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #f1eeee;
+}
+
+#map-body {
+    display: flex;}
