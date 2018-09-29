@@ -73,7 +73,7 @@ let infoWindow = new google.maps.InfoWindow({maxWidth: 320});
 spots.on('value', function (snapshot) {
     clearOverlays();
     let fspots = snapshot.val();
-    
+
     let fkeys = Object.keys(fspots);
     let fvals = Object.values(fspots);
 
@@ -89,9 +89,11 @@ spots.on('value', function (snapshot) {
             }
         }
 
+
         var marker = new google.maps.Marker({
             position: {lat: spot.latitude, lng: spot.longitude},
-            map: map
+            map: map,
+            icon: ((spot.type === "exists") ? 'http://maps.google.com/mapfiles/ms/icons/red-dot.png' : 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
         });
         markersArray.push(marker);
 
